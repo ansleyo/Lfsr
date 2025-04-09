@@ -1,0 +1,14 @@
+C:\Users\ansle\source\repos\project3\Lfsr\bin\Debug\net8.0\Lfsr.exe
+C:\Users\ansle\source\repos\project3\Lfsr\bin\Debug\net8.0\Lfsr.deps.json
+C:\Users\ansle\source\repos\project3\Lfsr\bin\Debug\net8.0\Lfsr.runtimeconfig.json
+C:\Users\ansle\source\repos\project3\Lfsr\bin\Debug\net8.0\Lfsr.dll
+C:\Users\ansle\source\repos\project3\Lfsr\bin\Debug\net8.0\Lfsr.pdb
+C:\Users\ansle\source\repos\project3\Lfsr\obj\Debug\net8.0\Lfsr.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ansle\source\repos\project3\Lfsr\obj\Debug\net8.0\Lfsr.AssemblyInfoInputs.cache
+C:\Users\ansle\source\repos\project3\Lfsr\obj\Debug\net8.0\Lfsr.AssemblyInfo.cs
+C:\Users\ansle\source\repos\project3\Lfsr\obj\Debug\net8.0\Lfsr.csproj.CoreCompileInputs.cache
+C:\Users\ansle\source\repos\project3\Lfsr\obj\Debug\net8.0\Lfsr.dll
+C:\Users\ansle\source\repos\project3\Lfsr\obj\Debug\net8.0\refint\Lfsr.dll
+C:\Users\ansle\source\repos\project3\Lfsr\obj\Debug\net8.0\Lfsr.pdb
+C:\Users\ansle\source\repos\project3\Lfsr\obj\Debug\net8.0\Lfsr.genruntimeconfig.cache
+C:\Users\ansle\source\repos\project3\Lfsr\obj\Debug\net8.0\ref\Lfsr.dll
