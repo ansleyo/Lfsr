@@ -21,14 +21,41 @@ namespace Lfsr
 
                     string seed = args[1];
                     int tap = int.Parse(args[2]);
+
                     Console.WriteLine($"{seed} – seed");
+
                     Cipher cipher = new Cipher(seed, tap);
                     char outputBit = cipher.Step();
+
                     Console.WriteLine($"{cipher.Seed} {outputBit}");
+
                     break;
 
                 case "generatekeystream":
+                
+                    string keystreamSeed = args[1];
+                    int keystreamTap = int.Parse(args[2]);
+                    int keystreamLength = int.Parse(args[3]);
+
+                    Console.WriteLine($"{keystreamSeed} – seed");
+
+                    Cipher keystreamCipher = new Cipher(keystreamSeed, keystreamTap);
+
+                    string keystream = string.Empty;
+
+                    for (int i = 0; i < keystreamLength; i++)
+                    {
+                        char bit = keystreamCipher.Step();
+                        keystream += bit;
+                        Console.WriteLine($"{keystreamCipher.Seed} {bit}");
+                    }
+
+                    
+                    File.WriteAllText("keystream", keystream);
+                    Console.WriteLine("The Keystream: " + keystream);
+
                     break;
+
                 case "encrypt":
                     break;
                 case "decrypt":
@@ -48,8 +75,8 @@ namespace Lfsr
 
         public class Cipher
         {
-            public string Seed { get; private set; }
-            public int Tap { get; private set; }
+            public string Seed { get; set; }
+            public int Tap { get; set; }
 
             public Cipher(string seed, int tap)
             {

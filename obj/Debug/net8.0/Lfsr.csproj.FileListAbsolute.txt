@@ -12,3 +12,4 @@ C:\Users\ansle\source\repos\project3\Lfsr\obj\Debug\net8.0\refint\Lfsr.dll
 C:\Users\ansle\source\repos\project3\Lfsr\obj\Debug\net8.0\Lfsr.pdb
 C:\Users\ansle\source\repos\project3\Lfsr\obj\Debug\net8.0\Lfsr.genruntimeconfig.cache
 C:\Users\ansle\source\repos\project3\Lfsr\obj\Debug\net8.0\ref\Lfsr.dll
+C:\Users\ansle\source\repos\project3\Lfsr\obj\Debug\net8.0\Lfsr.sourcelink.json
