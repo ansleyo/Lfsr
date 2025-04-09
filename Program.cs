@@ -18,7 +18,7 @@ namespace Lfsr
             switch (option)
             {
                 case "cipher":
-
+                    ///add error checking !!!!!
                     string seed = args[1];
                     int tap = int.Parse(args[2]);
 
@@ -32,7 +32,7 @@ namespace Lfsr
                     break;
 
                 case "generatekeystream":
-                
+                    /// another add error checking reminder
                     string keystreamSeed = args[1];
                     int keystreamTap = int.Parse(args[2]);
                     int keystreamLength = int.Parse(args[3]);
@@ -49,9 +49,7 @@ namespace Lfsr
                         keystream += bit;
                         Console.WriteLine($"{keystreamCipher.Seed} {bit}");
                     }
-
                     
-                    File.WriteAllText("keystream", keystream);
                     Console.WriteLine("The Keystream: " + keystream);
 
                     break;
