@@ -42,14 +42,56 @@ namespace Lfsr
                     Keystream keystream = new Keystream(keystreamSeed, keystreamTap, length);
                     string generatedKeystream = keystream.Generate();
 
-                    Console.WriteLine($"{generatedKeystream} – keystream");
+                    Console.WriteLine($"The Keystream: {generatedKeystream}");
 
-                    break;
+                    File.WriteAllText("keystream", generatedKeystream);
+
+                    break; 
 
                 case "encrypt":
+
+                    string plainText = args[1];
+
+                    string keystreamFromFile = File.ReadAllText("keystream");
+
+                    int maxLength = Math.Max(plainText.Length, keystreamFromFile.Length);
+                    plainText= plainText.PadLeft(maxLength, '0');
+                    keystreamFromFile = keystreamFromFile.PadLeft(maxLength, '0');
+
+                    string ciphertext = string.Empty;
+
+                    for (int i = 0; i < plainText.Length; i++)
+                    {
+                        char p = plainText[i];
+                        char k = keystreamFromFile[i];
+                        ciphertext += (p == k) ? '0' : '1';
+                    }
+
+                    Console.WriteLine($"The ciphertext is: {ciphertext}");
+
                     break;
+
                 case "decrypt":
+                    string ciphertextToDecrypt = args[1];
+
+                    string keystreamToDecrypt = File.ReadAllText("keystream");
+
+                    int maxLengthDecrypt = Math.Max(ciphertextToDecrypt.Length, keystreamToDecrypt.Length);
+                    ciphertextToDecrypt = ciphertextToDecrypt.PadLeft(maxLengthDecrypt, '0');
+                    keystreamToDecrypt = keystreamToDecrypt.PadLeft(maxLengthDecrypt, '0');
+                    
+                    string decryptedText = string.Empty;
+
+                    for (int i = 0; i < ciphertextToDecrypt.Length; i++)
+                    {
+                        char c = ciphertextToDecrypt[i];
+                        char k = keystreamToDecrypt[i];
+                        decryptedText += (c == k) ? '0' : '1';
+                    }
+
+                    Console.WriteLine($"The plaintext is: {decryptedText}");
                     break;
+                    
                 case "triplebits":
                     break;
                 case "encryptimage":
