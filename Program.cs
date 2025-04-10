@@ -35,22 +35,14 @@ namespace Lfsr
                     /// another add error checking reminder
                     string keystreamSeed = args[1];
                     int keystreamTap = int.Parse(args[2]);
-                    int keystreamLength = int.Parse(args[3]);
+                    int length = int.Parse(args[3]);
 
                     Console.WriteLine($"{keystreamSeed} – seed");
 
-                    Cipher keystreamCipher = new Cipher(keystreamSeed, keystreamTap);
+                    Keystream keystream = new Keystream(keystreamSeed, keystreamTap, length);
+                    string generatedKeystream = keystream.Generate();
 
-                    string keystream = string.Empty;
-
-                    for (int i = 0; i < keystreamLength; i++)
-                    {
-                        char bit = keystreamCipher.Step();
-                        keystream += bit;
-                        Console.WriteLine($"{keystreamCipher.Seed} {bit}");
-                    }
-                    
-                    Console.WriteLine("The Keystream: " + keystream);
+                    Console.WriteLine($"{generatedKeystream} – keystream");
 
                     break;
 
@@ -91,6 +83,34 @@ namespace Lfsr
                 Seed = Seed.Substring(1) + newBit;
 
                 return newBit;
+            }
+        }
+
+        public class Keystream{
+            public string Seed { get; set; }
+            public int Tap { get; set; }
+            public int Length { get; set; }
+
+            public Keystream(string seed, int tap, int length)
+            {
+                Seed = seed;
+                Tap = tap;
+                Length = length;
+            }
+
+            public string Generate()
+            {
+                string keystream = string.Empty;
+                Cipher cipher = new Cipher(Seed, Tap);
+
+                for (int i = 0; i < Length; i++)
+                {
+                    char bit = cipher.Step();
+                    keystream += bit;
+                    Console.WriteLine($"{cipher.Seed} {bit}");
+                }
+
+                return keystream;
             }
         }
     }
