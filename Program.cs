@@ -77,15 +77,35 @@ namespace Lfsr
                     break;
                     
                 case "triplebits":
+
+                    string tripleBitSeed = args[1];
+                    int tripleBitTap = int.Parse(args[2]);
+                    int stepCount = int.Parse(args[3]);       
+                    int iterationCount = int.Parse(args[4]);  
+
+                    string currentSeed = tripleBitSeed;
+
+                    Console.WriteLine($"{currentSeed} – seed");
+
+                    tripleBit tripleBit = new tripleBit(currentSeed, tripleBitTap, stepCount, iterationCount);
+                    tripleBit.Generate();
+
                     break;
+
                 case "encryptimage":
+
                     break;
+
                 case "decryptimage":
+
                     break;
+
                 default:
+
                     Console.WriteLine($"Unknown option: {option}");
                     Console.WriteLine("Valid options are: Cipher, GenerateKeystream, Encrypt, Decrypt, TripleBits, EncryptImage, DecryptImage");
                     break;
+                    
             }
         }
 
@@ -177,7 +197,42 @@ namespace Lfsr
 
                 return decryptedText;
 
+            }
         }
-    }
+
+        public class tripleBit{
+            public string Seed { get; set; }
+            public int Tap { get; set; }
+            public int StepCount { get; set; }
+            public int IterationCount { get; set; }
+
+            public tripleBit(string seed, int tap, int stepCount, int iterationCount)
+            {
+                Seed = seed;
+                Tap = tap;
+                StepCount = stepCount;
+                IterationCount = iterationCount;
+            }
+
+            public void Generate()
+            {
+                for (int i = 0; i < IterationCount; i++)
+                {
+                    Cipher tripleCipher = new Cipher(Seed, Tap);
+                    int accumulator = 1;
+
+                    for (int j = 0; j < StepCount; j++)
+                    {
+                        char bit = tripleCipher.Step(); 
+                        int bitValue = bit - '0';       
+                        accumulator = accumulator * 3 + bitValue;
+                    }
+
+                    Seed = tripleCipher.Seed;
+
+                    Console.WriteLine(Seed + " " + accumulator);
+                }
+            }
+        }
     }
 }
