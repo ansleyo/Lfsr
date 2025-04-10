@@ -50,46 +50,30 @@ namespace Lfsr
 
                 case "encrypt":
 
+                    Crypt encryptCrypt = new Crypt();
+
                     string plainText = args[1];
 
                     string keystreamFromFile = File.ReadAllText("keystream");
 
-                    int maxLength = Math.Max(plainText.Length, keystreamFromFile.Length);
-                    plainText= plainText.PadLeft(maxLength, '0');
-                    keystreamFromFile = keystreamFromFile.PadLeft(maxLength, '0');
-
-                    string ciphertext = string.Empty;
-
-                    for (int i = 0; i < plainText.Length; i++)
-                    {
-                        char p = plainText[i];
-                        char k = keystreamFromFile[i];
-                        ciphertext += (p == k) ? '0' : '1';
-                    }
+                    string ciphertext = encryptCrypt.Encrypt(plainText, keystreamFromFile);
 
                     Console.WriteLine($"The ciphertext is: {ciphertext}");
 
                     break;
 
                 case "decrypt":
+
+                    Crypt decryptCrypt = new Crypt();
+
                     string ciphertextToDecrypt = args[1];
 
                     string keystreamToDecrypt = File.ReadAllText("keystream");
 
-                    int maxLengthDecrypt = Math.Max(ciphertextToDecrypt.Length, keystreamToDecrypt.Length);
-                    ciphertextToDecrypt = ciphertextToDecrypt.PadLeft(maxLengthDecrypt, '0');
-                    keystreamToDecrypt = keystreamToDecrypt.PadLeft(maxLengthDecrypt, '0');
-                    
-                    string decryptedText = string.Empty;
-
-                    for (int i = 0; i < ciphertextToDecrypt.Length; i++)
-                    {
-                        char c = ciphertextToDecrypt[i];
-                        char k = keystreamToDecrypt[i];
-                        decryptedText += (c == k) ? '0' : '1';
-                    }
+                    string decryptedText = decryptCrypt.Decrypt(ciphertextToDecrypt, keystreamToDecrypt);
 
                     Console.WriteLine($"The plaintext is: {decryptedText}");
+
                     break;
                     
                 case "triplebits":
@@ -155,5 +139,45 @@ namespace Lfsr
                 return keystream;
             }
         }
+
+        public class Crypt{
+
+            public string Encrypt(string plaintext, string keystreamFromFile)
+            {
+                int maxLength = Math.Max(plaintext.Length, keystreamFromFile.Length);
+                plaintext= plaintext.PadLeft(maxLength, '0');
+                keystreamFromFile = keystreamFromFile.PadLeft(maxLength, '0');
+
+                string ciphertext = string.Empty;
+
+                for (int i = 0; i < plaintext.Length; i++)
+                {
+                    char p = plaintext[i];
+                    char k = keystreamFromFile[i];
+                    ciphertext += (p == k) ? '0' : '1';
+                }
+
+                return ciphertext;
+            }
+
+            public string Decrypt(string ciphertext, string keystream)
+            {
+                int maxLengthDecrypt = Math.Max(ciphertext.Length, keystream.Length);
+                ciphertext = ciphertext.PadLeft(maxLengthDecrypt, '0');
+                keystream = keystream.PadLeft(maxLengthDecrypt, '0');
+
+                string decryptedText = string.Empty;
+
+                for (int i = 0; i < ciphertext.Length; i++)
+                {
+                    char c = ciphertext[i];
+                    char k = keystream[i];
+                    decryptedText += (c == k) ? '0' : '1';
+                }
+
+                return decryptedText;
+
+        }
+    }
     }
 }
